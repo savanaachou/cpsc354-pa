@@ -1,40 +1,30 @@
-// Grammar for calculator (unambiguous, respects precedence and associativity)
-// Precedence (highest -> lowest):
-// 1. primary (NUMBER, parenthesis, log)
-// 2. ^ (right-associative)
-// 3. unary - (applies after ^, so -3^2 -> -(3^2))
-// 4. *
-// 5. + and - (binary, left-assoc)
-
-
-?start: exp
-
-
-?exp: sum
-
-
-?sum: sum "+" term -> add
-| sum "-" term -> sub
-| term
-
-
-?term: term "*" unary -> mul
-| unary
-
-
-?unary: "-" unary -> neg
-| pow
-
-
-?pow: primary "^" pow -> pow
-| primary
-
-
-?primary: "log" exp "base" exp -> log
-| NUMBER -> number
-| "(" exp ")"
-
-
+// grammar.lark
+// Grammar for the calculator assignment.
+// Precedence (from highest to lowest):
+//   - atoms (NUMBER, parenthesis, log ...)
+//   - ^ (right-associative)
+//   - unary - (prefix; lower precedence than ^ so that -3^2 == -(3^2))
+//   - *
+//   - +, - (binary)
 %import common.NUMBER
 %import common.WS_INLINE
 %ignore WS_INLINE
+
+?start: sum
+
+?sum: sum "+" term   -> add
+    | sum "-" term   -> sub
+    | term
+
+?term: term "*" unary -> mul
+     | unary
+
+?unary: "-" unary    -> neg
+      | power
+
+?power: atom "^" power  -> pow
+      | atom
+
+?atom: "log" atom "base" atom -> log
+     | "(" sum ")"
+     | NUMBER                   -> number
