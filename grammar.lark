@@ -1,30 +1,24 @@
-// grammar.lark
-// Grammar for the calculator assignment.
-// Precedence (from highest to lowest):
-//   - atoms (NUMBER, parenthesis, log ...)
-//   - ^ (right-associative)
-//   - unary - (prefix; lower precedence than ^ so that -3^2 == -(3^2))
-//   - *
-//   - +, - (binary)
 %import common.NUMBER
-%import common.WS_INLINE
-%ignore WS_INLINE
+%import common.WS
+%ignore WS
 
-?start: sum
+?start: exp
 
-?sum: sum "+" term   -> add
-    | sum "-" term   -> sub
-    | term
+?exp: exp "+" exp1            -> plus
+   | exp1
+   | exp "-" exp1             -> minus
 
-?term: term "*" unary -> mul
-     | unary
+?exp1: exp1 "*" exp2          -> mul
+    | exp2
 
-?unary: "-" unary    -> neg
-      | power
+?exp2: "-" exp2               -> neg
+    | exp3
 
-?power: atom "^" power  -> pow
-      | atom
+?exp3: "log" exp3 "base" exp4 -> log
+    | exp4
 
-?atom: "log" atom "base" atom -> log
-     | "(" sum ")"
-     | NUMBER                   -> number
+?exp4: exp5 "^" exp4          -> exp
+    | exp5 
+
+?exp5: NUMBER -> num
+    | "(" exp ")"    
