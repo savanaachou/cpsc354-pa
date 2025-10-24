@@ -6,7 +6,7 @@
 
 ?exp: exp "+" exp1            -> plus
    | exp1
-   | exp "-" exp1             -> minus
+   | exp "-" exp1             -> sub
 
 ?exp1: exp1 "*" exp2          -> mul
     | exp2
