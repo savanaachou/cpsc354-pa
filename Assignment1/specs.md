@@ -5,6 +5,9 @@
 - Kaye Galang, agalang@chapman.edu
 - Halle Broadnax, broadnax@chapman.edu
 
+## References
+Got help from Keira Ryan
+
 ## Files
 calculator_cfg.py
 grammar.lark
