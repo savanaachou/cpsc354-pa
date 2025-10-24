@@ -31,13 +31,13 @@ Methods:
 
 ### def evaluate(ast)
 recursively evaluates the value of ast representing the inputted expression. At each node, checks the current operation and performs the operation using the left & right nodes
-    - plus: adds left and right subexpressions
-    - sub: subtracts the right subexpression from the left
-    - mul: multiplies the left by right
-    - neg: multiplies the single child by -1
-    - log: log (left) base (right)
-    - exp: left raised to right
-    - num: integer of node  
+- plus: adds left and right subexpressions
+- sub: subtracts the right subexpression from the left
+- mul: multiplies the left by right
+- neg: multiplies the single child by -1
+- log: log (left) base (right)
+- exp: left raised to right
+- num: integer of node  
 
 ### def createParser()
 loads in grammar.lark and reads the file to construct a 'lalr' parser
