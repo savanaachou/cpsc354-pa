@@ -50,7 +50,7 @@ def createParser():
 
     return Lark(grammar, parser='lalr')
 
-if __name__ == "__main__":
+def main():
     if len(sys.argv) != 2:
         print("Usage: python calculator_cfg.py <expression>")
         sys.exit(1)
@@ -62,5 +62,8 @@ if __name__ == "__main__":
     ast = ast_creator.transform(tree)
     result = evaluate(ast)
     print(result)
+    
+if __name__ == "__main__":
+    main()
 
     
