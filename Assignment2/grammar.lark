@@ -1,24 +1,16 @@
-%import common.NUMBER
+?start: exp
+
+?exp: "\\" NAME "." exp             -> lam
+      | exp1            
+?exp1: exp1 exp2                    -> app
+      | exp2
+?exp2: NAME                         -> var
+      | "(" exp ")"
+
+NAME: /[a-z_][a-zA-Z0-9_]*/         
+
 %import common.WS
 %ignore WS
 
-?start: exp
-
-?exp: exp "+" exp1            -> plus
-   | exp1
-   | exp "-" exp1             -> sub
-
-?exp1: exp1 "*" exp2          -> mul
-    | exp2
-
-?exp2: "-" exp2               -> neg
-    | exp3
-
-?exp3: "log" exp3 "base" exp4 -> log
-    | exp4
-
-?exp4: exp5 "^" exp4          -> exp
-    | exp5 
-
-?exp5: NUMBER -> num
-    | "(" exp ")"    
+%ignore /\/\/[^\n]*/  
+%ignore /\/\*[\s\S]*?\*\//  
