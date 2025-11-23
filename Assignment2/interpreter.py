@@ -3,9 +3,6 @@ from lark import Lark, Transformer, Tree
 import lark
 import os
 
-#print(f"Python version: {sys.version}")
-#print(f"Lark version: {lark.__version__}")
-
 #  run/execute/interpret source code
 def interpret(source_code):
     cst = parser.parse(source_code)
@@ -33,24 +30,55 @@ class LambdaCalculusTransformer(Transformer):
     def NAME(self, token):
         return str(token)
 
-# reduce AST to normal form
+# reduce AST to normal form (normal-order, fully normalizing)
 def evaluate(tree):
+    # Keep reducing until no more changes occur (normal form)
+    while True:
+        new_tree = reduce_once(tree)
+        if new_tree == tree:
+            return tree  # normal form reached
+        tree = new_tree
+
+def reduce_once(tree):
+    # VAR
+    if tree[0] == 'var':
+        return tree
+
+    # LAMBDA: reduce inside the body (needed for full normal form)
+    if tree[0] == 'lam':
+        name = tree[1]
+        body = tree[2]
+        reduced_body = reduce_once(body)
+        if reduced_body != body:
+            return ('lam', name, reduced_body)
+        return tree
+
+    # APPLICATION
     if tree[0] == 'app':
-        e1 = evaluate(tree[1])
-        if e1[0] == 'lam':
-            body = e1[2]
-            name = e1[1]
-            arg = tree[2]
-            rhs = substitute(body, name, arg)
-            result = evaluate(rhs)
-            pass
-        else:
-            result = ('app', e1, tree[2])
-            pass
-    else:
-        result = tree
-        pass
-    return result
+        func = tree[1]
+        arg = tree[2]
+
+        # normal order: reduce the function first
+        reduced_func = reduce_once(func)
+        if reduced_func != func:
+            return ('app', reduced_func, arg)
+
+        # If function is a lambda → β-reduction
+        if func[0] == 'lam':
+            name = func[1]
+            body = func[2]
+            return substitute(body, name, arg)
+
+        # Reduce the argument only when the function cannot reduce further
+        reduced_arg = reduce_once(arg)
+        if reduced_arg != arg:
+            return ('app', func, reduced_arg)
+
+        # No reduction possible
+        return tree
+
+    raise Exception('Unknown tree', tree)
+
 
 # generate a fresh name 
 # needed eg for \y.x [y/x] --> \z.y where z is a fresh name)
@@ -74,15 +102,26 @@ def substitute(tree, name, replacement):
             return replacement # n [r/n] --> r
         else:
             return tree # x [r/n] --> x
+
     elif tree[0] == 'lam':
         if tree[1] == name:
             return tree # \n.e [r/n] --> \n.e
         else:
             fresh_name = name_generator.generate()
-            return ('lam', fresh_name, substitute(substitute(tree[2], tree[1], ('var', fresh_name)), name, replacement))
+            return ('lam',
+                    fresh_name,
+                    substitute(
+                        substitute(tree[2], tree[1], ('var', fresh_name)),
+                        name,
+                        replacement
+                    ))
             # \x.e [r/n] --> (\fresh.(e[fresh/x])) [r/n]
+
     elif tree[0] == 'app':
-        return ('app', substitute(tree[1], name, replacement), substitute(tree[2], name, replacement))
+        return ('app',
+                substitute(tree[1], name, replacement),
+                substitute(tree[2], name, replacement))
+
     else:
         raise Exception('Unknown tree', tree)
 
@@ -97,23 +136,19 @@ def linearize(ast):
         return ast
 
 def main():
-    import sys
     if len(sys.argv) != 2:
-        #print("Usage: python interpreter.py <filename or expression>", file=sys.stderr)
         sys.exit(1)
 
     input_arg = sys.argv[1]
 
     if os.path.isfile(input_arg):
-        # If the input is a valid file path, read from the file
         with open(input_arg, 'r') as file:
             expression = file.read()
     else:
-        # Otherwise, treat the input as a direct expression
         expression = input_arg
 
     result = interpret(expression)
-    print(f"\033[95m{result}\033[0m")
+    print(result)
 
 if __name__ == "__main__":
     main()
