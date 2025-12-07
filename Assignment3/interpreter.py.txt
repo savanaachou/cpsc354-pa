@@ -1,0 +1,50 @@
+True | interpreter | Input: \x.(\y.y)x | Expected: (\x.((\y.y) x)) | Output: (\x.((\y.y) x)) 
+True | interpreter | Input: (\x.a x) ((\x.x)b) | Expected: (a ((\x.x) b)) | Output: (a ((\x.x) b)) 
+True | interpreter | Input: (\x.x) (1--2) | Expected: 3.0 | Output: 3.0 
+True | interpreter | Input: (\x.x) (1---2) | Expected: -1.0 | Output: -1.0 
+True | interpreter | Input: (\x.x + 1) 5 | Expected: 6.0 | Output: 6.0 
+True | interpreter | Input: (\x.x * x) 3 | Expected: 9.0 | Output: 9.0 
+True | interpreter | Input: (\x.\y.x + y) 3 4 | Expected: 7.0 | Output: 7.0 
+True | interpreter | Input: 1-2*3-4 | Expected: -9.0 | Output: -9.0 
+True | interpreter | Input: (\x.x * x) 2 * 3 | Expected: 12.0 | Output: 12.0 
+True | interpreter | Input: (\x.x * x) (-2) * (-3) | Expected: -12.0 | Output: -12.0 
+True | interpreter | Input: ((\x.x * x) (-2)) * (-3) | Expected: -12.0 | Output: -12.0 
+True | interpreter | Input: (\x.x) (---2) | Expected: -2.0 | Output: -2.0 
+True | interpreter | Input: 5 + 3 | Expected: 8.0 | Output: 8.0 
+True | interpreter | Input: 10 - 4 | Expected: 6.0 | Output: 6.0 
+True | interpreter | Input: 6 * 7 | Expected: 42.0 | Output: 42.0 
+True | interpreter | Input: 1 + 2 + 3 + 4 | Expected: 10.0 | Output: 10.0 
+True | interpreter | Input: 2 * 3 * 4 | Expected: 24.0 | Output: 24.0 
+True | interpreter | Input: 2 + 3 * 4 | Expected: 14.0 | Output: 14.0 
+True | interpreter | Input: (2 + 3) * 4 | Expected: 20.0 | Output: 20.0 
+True | interpreter | Input: 10 + (-5) | Expected: 5.0 | Output: 5.0 
+True | interpreter | Input: (-5) | Expected: -5.0 | Output: -5.0 
+True | interpreter | Input: (--5) | Expected: 5.0 | Output: 5.0 
+True | interpreter | Input: (\x.x) 42 | Expected: 42.0 | Output: 42.0 
+True | interpreter | Input: (\x.\y.x) 5 10 | Expected: 5.0 | Output: 5.0 
+True | interpreter | Input: (\x.x * x + x) 5 | Expected: 30.0 | Output: 30.0 
+True | interpreter | Input: 5 + 0 | Expected: 5.0 | Output: 5.0 
+True | interpreter | Input: 0 * 100 | Expected: 0.0 | Output: 0.0 
+True | interpreter | Input: ((((5)))) | Expected: 5.0 | Output: 5.0 
+True | interpreter | Input: 2 + 3 * 4 - 5 * 6 | Expected: -16.0 | Output: -16.0 
+True | interpreter | Input: (\x.\y.x - y) 10 3 | Expected: 7.0 | Output: 7.0 
+True | interpreter | Input: (\f.f 5) (\x.x * x) | Expected: 25.0 | Output: 25.0 
+True | interpreter | Input: 1 + 2 * 3 + 4 | Expected: 11.0 | Output: 11.0 
+True | interpreter | Input: (1 + 2) * (3 + 4) | Expected: 21.0 | Output: 21.0 
+True | interpreter | Input: 100 - 50 - 25 | Expected: 25.0 | Output: 25.0 
+True | interpreter | Input: (\x.x + x) (2 * 3) | Expected: 12.0 | Output: 12.0 
+True | interpreter | Input: (10 - 5) * (8 - 3) | Expected: 25.0 | Output: 25.0 
+True | interpreter | Input: (\x.x) (5 + 5) | Expected: 10.0 | Output: 10.0 
+True | interpreter | Input: (\x.x * 2) (3 + 4) | Expected: 14.0 | Output: 14.0 
+True | interpreter | Input: 3 * 4 + 5 * 6 | Expected: 42.0 | Output: 42.0 
+True | interpreter | Input: (1 - 2) * (3 - 4) | Expected: 1.0 | Output: 1.0 
+True | interpreter | Input: (\x.\y.x * y) 6 7 | Expected: 42.0 | Output: 42.0 
+True | interpreter | Input: (\x.(\y.x + y) 3) 4 | Expected: 7.0 | Output: 7.0 
+True | interpreter | Input: 2 * (3 + 4) * 5 | Expected: 70.0 | Output: 70.0 
+True | interpreter | Input: (\x.x + 1) ((\y.y * 2) 5) | Expected: 11.0 | Output: 11.0 
+True | interpreter | Input: (----10) | Expected: 10.0 | Output: 10.0 
+True | interpreter | Input: 1 - (-1) | Expected: 2.0 | Output: 2.0 
+True | interpreter | Input: (-3) * (-4) | Expected: 12.0 | Output: 12.0 
+True | interpreter | Input: (\x.x - x) 100 | Expected: 0.0 | Output: 0.0 
+True | interpreter | Input: 7 - 3 - 2 - 1 | Expected: 1.0 | Output: 1.0 
+True | interpreter | Input: (\x.\y.\z.x + y + z) 1 2 3 | Expected: 6.0 | Output: 6.0 

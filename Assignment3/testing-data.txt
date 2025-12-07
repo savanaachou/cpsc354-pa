@@ -1,0 +1,50 @@
+interpreter, \x.(\y.y)x, (\x.((\y.y) x))
+interpreter, (\x.a x) ((\x.x)b), (a ((\x.x) b))
+interpreter, (\x.x) (1--2), 3.0
+interpreter, (\x.x) (1---2), -1.0
+interpreter, (\x.x + 1) 5, 6.0
+interpreter, (\x.x * x) 3, 9.0
+interpreter, (\x.\y.x + y) 3 4, 7.0
+interpreter, 1-2*3-4, -9.0
+interpreter, (\x.x * x) 2 * 3, 12.0
+interpreter, (\x.x * x) (-2) * (-3), -12.0
+interpreter, ((\x.x * x) (-2)) * (-3), -12.0
+interpreter, (\x.x) (---2), -2.0
+interpreter, 5 + 3, 8.0
+interpreter, 10 - 4, 6.0
+interpreter, 6 * 7, 42.0
+interpreter, 1 + 2 + 3 + 4, 10.0
+interpreter, 2 * 3 * 4, 24.0
+interpreter, 2 + 3 * 4, 14.0
+interpreter, (2 + 3) * 4, 20.0
+interpreter, 10 + (-5), 5.0
+interpreter, (-5), -5.0
+interpreter, (--5), 5.0
+interpreter, (\x.x) 42, 42.0
+interpreter, (\x.\y.x) 5 10, 5.0
+interpreter, (\x.x * x + x) 5, 30.0
+interpreter, 5 + 0, 5.0
+interpreter, 0 * 100, 0.0
+interpreter, ((((5)))), 5.0
+interpreter, 2 + 3 * 4 - 5 * 6, -16.0
+interpreter, (\x.\y.x - y) 10 3, 7.0
+interpreter, (\f.f 5) (\x.x * x), 25.0
+interpreter, 1 + 2 * 3 + 4, 11.0
+interpreter, (1 + 2) * (3 + 4), 21.0
+interpreter, 100 - 50 - 25, 25.0
+interpreter, (\x.x + x) (2 * 3), 12.0
+interpreter, (10 - 5) * (8 - 3), 25.0
+interpreter, (\x.x) (5 + 5), 10.0
+interpreter, (\x.x * 2) (3 + 4), 14.0
+interpreter, 3 * 4 + 5 * 6, 42.0
+interpreter, (1 - 2) * (3 - 4), 1.0
+interpreter, (\x.\y.x * y) 6 7, 42.0
+interpreter, (\x.(\y.x + y) 3) 4, 7.0
+interpreter, 2 * (3 + 4) * 5, 70.0
+interpreter, (\x.x + 1) ((\y.y * 2) 5), 11.0
+interpreter, (----10), 10.0
+interpreter, 1 - (-1), 2.0
+interpreter, (-3) * (-4), 12.0
+interpreter, (\x.x - x) 100, 0.0
+interpreter, 7 - 3 - 2 - 1, 1.0
+interpreter, (\x.\y.\z.x + y + z) 1 2 3, 6.0
